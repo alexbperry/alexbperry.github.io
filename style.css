@@ -1,0 +1,32 @@
+body {
+    font-family: 'Jua', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 48px;
+    text-align: center;
+    margin-top: 60px;
+    color: #000000;
+}
+
+h2 {
+    font-size: 24px;
+    margin-top: 24px;
+}
+
+hr {
+    margin : 40px 0;
+}
+
+.header {
+    background-color: #8ba5be;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.container {
+    padding: 0 200px;
+}
