@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <title>Alex Perry</title>
 
-    <!--Google Font-->
-   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <!-- Google Font (optional for later if you want it) -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
+    <!-- Your CSS -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="favicon.png">
 
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Favicon for browser tab -->
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
@@ -25,54 +29,124 @@
             <a href="contact.html">Contact</a>
         </nav>
 
+        <button class="header-icon-btn" aria-label="Open mini game">
+            <img src="favicon.png" class="header-icon" alt="">
+        </button>
     </div>
-
-
 
     <div class="container">
         <br>
-    <hr>
+        <hr>
 
-<h2>Welcome</h2>
-<p>
-    I'm Alex Perry, a Computer Science student at ECU currently exploring software development,
-    data analytics, and clean, minimal web design. I’m building this site as a place to organize
-    my work and track my progress as I grow my skills.
-</p>
+        <h2>Welcome</h2>
+        <p>
+            I'm Alex Perry, a Computer Science student at ECU currently exploring software development,
+            data analytics, and clean, minimal web design. I’m building this site as a place to organize
+            my work and track my progress as I grow my skills.
+        </p>
 
-<h2>What I’m Working On</h2>
-<p>
-    Right now I'm strengthening my fundamentals in Java, Python, and web development,
-    building small projects, and learning tools used in real data and software workflows.
-    I'm also working through labs for my computer science courses and beginning projects
-    related to data visualization and analytics.
-</p>
+        <h2>What I’m Working On</h2>
+        <p>
+            Right now I'm strengthening my fundamentals in Java, Python, and web development,
+            building small projects, and learning tools used in real data and software workflows.
+            I'm also working through labs for my computer science courses and beginning projects
+            related to data visualization and analytics.
+        </p>
 
-<h2>Explore</h2>
-<p>
-    You can check out some of my coursework and personal projects on the Projects page,
-    or learn more about my background and interests on the About page.
-</p>
+        <h2>Explore</h2>
+        <p>
+            You can check out some of my coursework and personal projects on the Projects page,
+            or learn more about my background and interests on the About page.
+        </p>
 
-<hr>
-
+        <hr>
     </div>
-
-    <br>
-    <br>
-    <br>
 
     <div class="footer">
-    <p>Site under construction. Updated by Alex.</p>
+        <p>Site under construction. Updated by Alex.</p>
 
         <div class="social-links">
-        <a href="https://www.linkedin.com/in/alexandra-perry-4767b4330/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://instagram.com/alexperrq" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/alexbperry" target="_blank"><i class="fab fa-github"></i></a>
-        
+            <a href="https://www.linkedin.com/in/alexandra-perry-4767b4330/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://instagram.com/alexperrq" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/alexbperry" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
     </div>
 
+    <!-- Game overlay (hidden by default) -->
+    <div id="game-overlay" class="game-overlay">
+        <div class="game-window">
+            <button class="game-close" aria-label="Close game">×</button>
+            <h2>You found the dog! Here's a fun little mini game!</h2>
+            <p>Click the button as many times as you can in 5 seconds.</p>
+                <img src="favicon.png" class="" alt="">
+            <button id="game-click-btn" class="game-main-btn">Click me</button>
+            <p>Score: <span id="game-score">0</span></p>
+            <p id="game-status">Press "Start" to begin.</p>
+
+            <button id="game-start-btn" class="game-secondary-btn">Start</button>
+        </div>
     </div>
 
+    <script>
+        const iconBtn = document.querySelector('.header-icon-btn');
+        const overlay = document.getElementById('game-overlay');
+        const closeBtn = document.querySelector('.game-close');
+        const startBtn = document.getElementById('game-start-btn');
+        const clickBtn = document.getElementById('game-click-btn');
+        const scoreSpan = document.getElementById('game-score');
+        const statusText = document.getElementById('game-status');
+
+        let score = 0;
+        let timerId = null;
+        let gameActive = false;
+
+        function openGame() {
+            overlay.style.display = 'flex';
+            resetGame();
+        }
+
+        function closeGame() {
+            overlay.style.display = 'none';
+            resetGame();
+        }
+
+        function resetGame() {
+            score = 0;
+            gameActive = false;
+            scoreSpan.textContent = score;
+            statusText.textContent = 'Press "Start" to begin.';
+            if (timerId) {
+                clearTimeout(timerId);
+                timerId = null;
+            }
+        }
+
+        function startGame() {
+            resetGame();
+            gameActive = true;
+            statusText.textContent = 'Go!';
+            timerId = setTimeout(() => {
+                gameActive = false;
+                statusText.textContent = 'Time up! Final score: ' + score + '.';
+            }, 5000);
+        }
+
+        function handleClick() {
+            if (!gameActive) return;
+            score++;
+            scoreSpan.textContent = score;
+        }
+
+        iconBtn.addEventListener('click', openGame);
+        closeBtn.addEventListener('click', closeGame);
+        startBtn.addEventListener('click', startGame);
+        clickBtn.addEventListener('click', handleClick);
+    </script>
 </body>
 </html>

@@ -29,10 +29,27 @@ hr {
     background-color: #8ba5be;
     padding: 20px 0;
     text-align: center;
+    position: relative;
+}
+
+.header-icon-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.header-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
 }
 
 .container {
-    flex: 1; /* allow main content to grow and push footer to the bottom */
+    flex: 1;
     padding: 0 15%;
 }
 
@@ -47,7 +64,7 @@ hr {
 
 .header nav a:hover {
     transform: scale(1.1);
-    color: rgb(0, 59, 131)
+    color: rgb(0, 59, 131);
 }
 
 html, body {
@@ -75,4 +92,44 @@ html, body {
 .social-links a:hover {
     transform: scale(1.2);
     color: rgb(0, 59, 131);
+}
+
+/* Game overlay + window */
+
+.game-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.game-window {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+
+.game-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.game-main-btn,
+.game-secondary-btn {
+    font-size: 18px;
+    padding: 8px 16px;
+    margin: 8px;
+    cursor: pointer;
 }
