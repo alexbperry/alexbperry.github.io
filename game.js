@@ -13,48 +13,60 @@ let timeLeft = 5;
 let countdownInterval = null;
 let cooldown = false;
 
-// leaderboard data
-let leaderboard = [];
+// 🔗 Your MockAPI "scores" endpoint
+// If your resource in MockAPI is named something else, change "scores" to that.
+const API_URL = "https://691e6358bb52a1db22bdc021.mockapi.io/scores";
 
-function loadLeaderboard() {
+// Get top scores from backend
+async function loadLeaderboard() {
     try {
-        const stored = localStorage.getItem('dogGameLeaderboard');
-        leaderboard = stored ? JSON.parse(stored) : [];
-    } catch (e) {
-        leaderboard = [];
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        // data is an array of { id, name, score, ... }
+        const top3 = data
+            .sort((a, b) => Number(b.score) - Number(a.score))
+            .slice(0, 3);
+
+        updateLeaderboardDOM(top3);
+    } catch (err) {
+        console.error("Error loading leaderboard:", err);
     }
-    updateLeaderboardDOM();
 }
 
-function saveLeaderboard() {
+// Save a new score to backend
+async function saveScore(name, score) {
     try {
-        localStorage.setItem('dogGameLeaderboard', JSON.stringify(leaderboard));
-    } catch (e) {
-        // ignore storage errors
+        await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, score })
+        });
+    } catch (err) {
+        console.error("Error saving score:", err);
     }
 }
 
-function updateLeaderboardDOM() {
-    if (!leaderboardList) return;
+function updateLeaderboardDOM(entries) {
+    leaderboardList.innerHTML = "";
 
-    leaderboardList.innerHTML = '';
-
-    // show only top 3
-    leaderboard.slice(0, 3).forEach((entry) => {
-        const li = document.createElement('li');
+    entries.forEach((entry) => {
+        const li = document.createElement("li");
         li.textContent = `${entry.name}: ${entry.score}`;
         leaderboardList.appendChild(li);
     });
 }
 
 function openGame() {
-    overlay.style.display = 'flex';
+    overlay.style.display = "flex";
     loadLeaderboard();
     resetGame();
 }
 
 function closeGame() {
-    overlay.style.display = 'none';
+    overlay.style.display = "none";
     resetGame();
 }
 
@@ -67,7 +79,7 @@ function resetGame() {
     scoreSpan.textContent = score;
     timerSpan.textContent = timeLeft;
     statusText.textContent = 'Press "Start" to begin.';
-    gameBtn.textContent = 'Start';
+    gameBtn.textContent = "Start";
     gameBtn.disabled = false;
 
     clearInterval(countdownInterval);
@@ -82,8 +94,8 @@ function startGame() {
 
     scoreSpan.textContent = score;
     timerSpan.textContent = timeLeft;
-    statusText.textContent = 'Go! Press SPACE to score!';
-    gameBtn.textContent = 'Click with SPACE';
+    statusText.textContent = "Go! Press SPACE to score!";
+    gameBtn.textContent = "Click with SPACE";
     gameBtn.disabled = false;
 
     // Countdown timer
@@ -97,24 +109,18 @@ function startGame() {
     }, 1000);
 }
 
-function endGame() {
+async function endGame() {
     clearInterval(countdownInterval);
     gameActive = false;
-    statusText.textContent = 'Time up! Final score: ' + score + '.';
-    gameBtn.textContent = 'Wait...';
+    statusText.textContent = "Time up! Final score: " + score + ".";
+    gameBtn.textContent = "Wait...";
     gameBtn.disabled = true;
 
-    // Update leaderboard if they scored > 0
+    // Save to backend if score > 0
     if (score > 0) {
-        const name = prompt('Enter your name for the leaderboard:', 'Alex') || 'Player';
-        leaderboard.push({ name, score });
-
-        // Sort highest score first & keep top 3
-        leaderboard.sort((a, b) => b.score - a.score);
-        leaderboard = leaderboard.slice(0, 3);
-
-        saveLeaderboard();
-        updateLeaderboardDOM();
+        const name = prompt("Enter your name for the leaderboard:", "Alex") || "Player";
+        await saveScore(name, score);
+        await loadLeaderboard(); // refresh after saving
     }
 
     cooldown = true;
@@ -123,7 +129,7 @@ function endGame() {
     setTimeout(() => {
         cooldown = false;
         gameBtn.disabled = false;
-        gameBtn.textContent = 'Play Again';
+        gameBtn.textContent = "Play Again";
         statusText.textContent = 'Press "Play Again" to start.';
     }, 2000);
 }
@@ -138,8 +144,8 @@ function handleButtonPress() {
 }
 
 // SPACEBAR scoring
-document.addEventListener('keydown', function (e) {
-    if (e.code === 'Space') {
+document.addEventListener("keydown", function (e) {
+    if (e.code === "Space") {
         e.preventDefault(); // prevent page from scrolling
         if (gameActive && !cooldown) {
             score++;
@@ -148,9 +154,9 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-iconBtn.addEventListener('click', openGame);
-closeBtn.addEventListener('click', closeGame);
-gameBtn.addEventListener('click', handleButtonPress);
+iconBtn.addEventListener("click", openGame);
+closeBtn.addEventListener("click", closeGame);
+gameBtn.addEventListener("click", handleButtonPress);
 
 // Load leaderboard once when script runs
 loadLeaderboard();
