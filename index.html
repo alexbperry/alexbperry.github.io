@@ -4,16 +4,9 @@
     <meta charset="UTF-8">
     <title>Alex Perry</title>
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-    <!-- Your CSS -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Favicon for browser tab -->
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
@@ -22,12 +15,7 @@
         <h1>Alex Perry</h1>
         <p>Computer Science Student · ECU</p>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="projects.html">Projects</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+    <script src="navbar.js"></script>
 
         <button class="header-icon-btn" aria-label="Open mini game">
             <img src="favicon.png" class="header-icon" alt="">
@@ -62,31 +50,16 @@
         <hr>
     </div>
 
-    <div class="footer">
-        <p>Site under construction. Updated by Alex.</p>
-
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/alexandra-perry-4767b4330/" target="_blank">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://instagram.com/alexperrq" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://github.com/alexbperry" target="_blank">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-    </div>
+<script src="footer.js"></script>
 
     <!-- Game overlay -->
     <div id="game-overlay" class="game-overlay">
         <div class="game-window">
             <button class="game-close" aria-label="Close game">×</button>
             <h2>You found the dog! Here's a fun little mini game!</h2>
-            <p>Click the button as many times as you can in 5 seconds.</p>
+            <p>Press the space bar as many times as you can in 5 seconds.</p>
             <img src="favicon.png" alt="">
 
-            <!-- Single button for start / clicking / play again -->
             <button id="game-btn" class="game-main-btn">Start</button>
 
             <p>Score: <span id="game-score">0</span></p>

@@ -13,8 +13,6 @@ let timeLeft = 5;
 let countdownInterval = null;
 let cooldown = false;
 
-// 🔗 Your MockAPI "scores" endpoint
-// If your resource in MockAPI is named something else, change "scores" to that.
 const API_URL = "https://691e6358bb52a1db22bdc021.mockapi.io/scores";
 
 // Get top scores from backend

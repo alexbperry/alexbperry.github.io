@@ -184,3 +184,74 @@ html, body {
     margin: 2px 0;
     padding: 2px;
 }
+
+.coursework {
+    margin: 40px auto 60px;
+    max-width: 1100px;
+}
+
+.coursework > h2 {
+    margin-bottom: 6px;
+}
+
+.coursework > p {
+    margin-bottom: 20px;
+}
+
+/* Responsive grid of course chips */
+.coursework-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.course-chip {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.course-chip h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+.course-chip p {
+    margin: 4px 0;
+}
+
+.course-meta {
+    margin-top: 8px;
+    font-size: 0.92em;
+    opacity: 0.9;
+}
+
+/* Hover effect */
+.course-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Upcoming pills */
+.upcoming-title {
+    margin-top: 32px;
+    margin-bottom: 10px;
+}
+
+.upcoming-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pill {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 0.92em;
+    background: #f7f7ff;
+}
