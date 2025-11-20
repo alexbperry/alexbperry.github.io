@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Alex Perry</title>
 
-    <!-- Google Font (optional for later if you want it) -->
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
     <!-- Your CSS -->
@@ -78,75 +78,26 @@
         </div>
     </div>
 
-    <!-- Game overlay (hidden by default) -->
+    <!-- Game overlay -->
     <div id="game-overlay" class="game-overlay">
         <div class="game-window">
             <button class="game-close" aria-label="Close game">×</button>
             <h2>You found the dog! Here's a fun little mini game!</h2>
             <p>Click the button as many times as you can in 5 seconds.</p>
-                <img src="favicon.png" class="" alt="">
-            <button id="game-click-btn" class="game-main-btn">Click me</button>
+            <img src="favicon.png" alt="">
+
+            <!-- Single button for start / clicking / play again -->
+            <button id="game-btn" class="game-main-btn">Start</button>
+
             <p>Score: <span id="game-score">0</span></p>
+            <p>Time Left: <span id="game-timer">5</span>s</p>
             <p id="game-status">Press "Start" to begin.</p>
 
-            <button id="game-start-btn" class="game-secondary-btn">Start</button>
+            <h3>Leaderboard</h3>
+            <ol id="leaderboard-list"></ol>
         </div>
     </div>
 
-    <script>
-        const iconBtn = document.querySelector('.header-icon-btn');
-        const overlay = document.getElementById('game-overlay');
-        const closeBtn = document.querySelector('.game-close');
-        const startBtn = document.getElementById('game-start-btn');
-        const clickBtn = document.getElementById('game-click-btn');
-        const scoreSpan = document.getElementById('game-score');
-        const statusText = document.getElementById('game-status');
-
-        let score = 0;
-        let timerId = null;
-        let gameActive = false;
-
-        function openGame() {
-            overlay.style.display = 'flex';
-            resetGame();
-        }
-
-        function closeGame() {
-            overlay.style.display = 'none';
-            resetGame();
-        }
-
-        function resetGame() {
-            score = 0;
-            gameActive = false;
-            scoreSpan.textContent = score;
-            statusText.textContent = 'Press "Start" to begin.';
-            if (timerId) {
-                clearTimeout(timerId);
-                timerId = null;
-            }
-        }
-
-        function startGame() {
-            resetGame();
-            gameActive = true;
-            statusText.textContent = 'Go!';
-            timerId = setTimeout(() => {
-                gameActive = false;
-                statusText.textContent = 'Time up! Final score: ' + score + '.';
-            }, 5000);
-        }
-
-        function handleClick() {
-            if (!gameActive) return;
-            score++;
-            scoreSpan.textContent = score;
-        }
-
-        iconBtn.addEventListener('click', openGame);
-        closeBtn.addEventListener('click', closeGame);
-        startBtn.addEventListener('click', startGame);
-        clickBtn.addEventListener('click', handleClick);
-    </script>
+    <script src="game.js"></script>
 </body>
 </html>
