@@ -52,7 +52,7 @@ MockAPI was selected for its ease of integration and full CORS compatibility wit
 
 - Custom-designed static website  
 - Custom domain (alexperry.blog) integrated with GitHub Pages  
-- Shared footer dynamically loaded through `footer.js`  
+- Shared footer dynamically loaded through `navbar.js` and `footer.js` 
 - Interactive mini-game with a persistent, API-backed leaderboard  
 - Font Awesome icons for social links  
 - Google Fonts typography  
