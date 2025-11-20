@@ -82,6 +82,7 @@ alexperry.blog (repo: alexbperry.github.io)
 ├── style.css  
 ├── game.js  
 ├── footer.js  
+├── navbar.js  
 ├── favicon.png  
 └── README.md  
 
